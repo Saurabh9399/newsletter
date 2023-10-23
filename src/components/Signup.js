@@ -1,7 +1,16 @@
 import React from "react";
 import ReactLogo from "../images/illustration-sign-up-desktop.svg"
+import { useFormik } from 'formik';
 
 const Signup = () => {
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+    },
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
   return (
     <div className="w-[55%] border border-gray-400 mx-auto bg-white rounded-2xl flex px-10 py-6 justify-center items-center">
       <div className="w-1/2 border">
@@ -78,11 +87,13 @@ const Signup = () => {
             </span>
           </div>
         </div>
-        <form className="flex flex-col">
+        <form className="flex flex-col" onSubmit={formik.handleSubmit}>
         <label className="text-xs my-2 text-gray-700 font-bold">Email Address</label>
           <input
             placeholder="Enter email..."
             className="m-4 p-3 border border-gray-500 rounded ml-0 mt-0 w-[93%]"
+            onChange={formik.handleChange}
+            value={formik.values.email}
           />
           <button
             className="bg-red-500 w-[93%] mx-auto text-white rounded-lg p-2 ml-0 opacity-90 hover:opacity-80 font-bold text-sm"
